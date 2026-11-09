@@ -978,8 +978,6 @@ export default function Home() {
                               {new Date(driver.created_at).toLocaleDateString("es-CO")}
                             </p>
 
-                            <badge-placeholder />
-
                             <div className="form-footer">
                               <button
                                 className="button button-primary"
