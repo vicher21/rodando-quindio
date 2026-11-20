@@ -25,9 +25,21 @@ export async function getClientProfile(): Promise<ClientProfile | null> {
 
   if (error) throw error;
 
-  // Si la sesión pertenece a un administrador o conductor,
-  // no la tratamos como una sesión de cliente.
   if (!data || data.role !== "client") {
+    return null;
+  }
+
+  // Si el perfil está incompleto, mostramos nuevamente el formulario.
+  // Conservamos la sesión para actualizar el perfil existente.
+  const name = (data.full_name ?? "").trim();
+  const phone = (data.phone ?? "").trim();
+
+  if (
+    name.length < 2 ||
+    name.toLowerCase() === "nuevo usuario" ||
+    name.toLowerCase() === "nuevo" ||
+    phone.replace(/\D/g, "").length < 7
+  ) {
     return null;
   }
 
@@ -66,7 +78,23 @@ export async function registerClient(
     if (error) throw error;
 
     if (existingProfile?.role === "client") {
-      return existingProfile as ClientProfile;
+      // Actualizamos el perfil existente en lugar de devolver
+      // los datos antiguos sin modificarlos.
+      const { data, error: updateError } = await supabase.rpc(
+        "update_client_profile",
+        {
+          p_full_name: cleanName,
+          p_phone: cleanPhone,
+        }
+      );
+
+      if (updateError) throw updateError;
+
+      if (!data) {
+        throw new Error("No se pudo actualizar tu perfil.");
+      }
+
+      return data as ClientProfile;
     }
 
     if (existingProfile && existingProfile.role !== "client") {
@@ -86,6 +114,7 @@ export async function registerClient(
     session = data.session;
   }
 
+  // Para perfiles nuevos utilizamos la función de creación existente.
   const { data: profile, error: profileError } = await supabase.rpc(
     "create_client_profile",
     {

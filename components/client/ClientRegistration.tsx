@@ -40,7 +40,7 @@ export default function ClientRegistration({ onRegistered }: Props) {
       setError(
         err instanceof Error
           ? err.message
-          : "No pudimos crear tu perfil. Inténtalo nuevamente."
+          : "No pudimos guardar tu perfil. Inténtalo nuevamente."
       );
     } finally {
       setLoading(false);
@@ -97,7 +97,7 @@ export default function ClientRegistration({ onRegistered }: Props) {
           className="button button-primary registration-submit"
           disabled={loading}
         >
-          {loading ? "Creando tu perfil..." : "Comenzar a rodar"}
+          {loading ? "Guardando tu perfil..." : "Comenzar a rodar"}
           {!loading && <span>↗</span>}
         </button>
 
