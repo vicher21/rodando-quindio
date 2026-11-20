@@ -8,10 +8,6 @@ export type ClientProfile = {
   role: "client";
 };
 
-/**
- * Recupera el perfil del cliente que tiene una sesión activa.
- * Devuelve null si no hay sesión o todavía no existe un perfil.
- */
 export async function getClientProfile(): Promise<ClientProfile | null> {
   const {
     data: { session },
@@ -28,21 +24,16 @@ export async function getClientProfile(): Promise<ClientProfile | null> {
     .maybeSingle();
 
   if (error) throw error;
-  if (!data) return null;
 
-  if (data.role !== "client") {
-    throw new Error(
-      "Esta sesión pertenece a otro tipo de usuario. Utiliza el acceso correspondiente."
-    );
+  // Si la sesión pertenece a un administrador o conductor,
+  // no la tratamos como una sesión de cliente.
+  if (!data || data.role !== "client") {
+    return null;
   }
 
   return data as ClientProfile;
 }
 
-/**
- * Registra al cliente una sola vez.
- * Si ya tiene una sesión anónima, la reutiliza.
- */
 export async function registerClient(
   fullName: string,
   phone: string
@@ -65,18 +56,29 @@ export async function registerClient(
 
   if (sessionError) throw sessionError;
 
-  // Si ya existe una sesión, comprobamos si tiene un perfil.
   if (session) {
-    const existingProfile = await getClientProfile();
+    const { data: existingProfile, error } = await supabase
+      .from("profiles")
+      .select("id, full_name, phone, role")
+      .eq("id", session.user.id)
+      .maybeSingle();
 
-    if (existingProfile) {
-      return existingProfile;
+    if (error) throw error;
+
+    if (existingProfile?.role === "client") {
+      return existingProfile as ClientProfile;
+    }
+
+    if (existingProfile && existingProfile.role !== "client") {
+      throw new Error(
+        "Tienes una sesión de administrador o conductor abierta. Cierra esa sesión antes de registrarte como cliente."
+      );
     }
   } else {
-    // Primera visita: crear una identidad anónima.
     const { data, error } = await supabase.auth.signInAnonymously();
 
     if (error) throw error;
+
     if (!data.session) {
       throw new Error("No se pudo iniciar la sesión del cliente.");
     }
@@ -84,7 +86,6 @@ export async function registerClient(
     session = data.session;
   }
 
-  // Guardar los datos del cliente mediante nuestra función SQL.
   const { data: profile, error: profileError } = await supabase.rpc(
     "create_client_profile",
     {
@@ -94,6 +95,7 @@ export async function registerClient(
   );
 
   if (profileError) throw profileError;
+
   if (!profile) {
     throw new Error("No se pudo guardar el perfil del cliente.");
   }
@@ -101,9 +103,6 @@ export async function registerClient(
   return profile as ClientProfile;
 }
 
-/**
- * Cierra la sesión del cliente en este dispositivo.
- */
 export async function logoutClient(): Promise<void> {
   const { error } = await supabase.auth.signOut();
 

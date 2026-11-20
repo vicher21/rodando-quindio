@@ -1910,3 +1910,83 @@ button {
     flex-direction: column;
   }
 }
+
+.staff-access {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.staff-access a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 11px 15px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.staff-access-admin {
+  background: #174c37;
+  color: #fff;
+}
+
+.staff-access-admin:hover {
+  background: #286447;
+  transform: translateY(-2px);
+}
+
+.staff-access-driver {
+  border: 1px solid #dce4dc;
+  background: #fff;
+  color: #174c37;
+}
+
+.staff-access-driver:hover {
+  border-color: #e9a16e;
+  background: #fff8f1;
+  transform: translateY(-2px);
+}
+
+.footer-access {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 18px 0;
+}
+
+.footer-access a {
+  color: inherit;
+  font-size: 12px;
+  text-decoration: none;
+  opacity: 0.75;
+}
+
+.footer-access a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .staff-access {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .staff-access a {
+    flex: 1;
+    padding: 11px 8px;
+    font-size: 11px;
+  }
+}
