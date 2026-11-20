@@ -2280,3 +2280,261 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+.driver-dashboard {
+  min-height: 100vh;
+  padding: 0 7%;
+  background: #f6f5ef;
+  color: #202923;
+}
+
+.driver-dashboard-header {
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e7e5dc;
+}
+
+.driver-dashboard-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #174c37;
+  text-decoration: none;
+}
+
+.driver-dashboard-brand span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: #174c37;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.driver-dashboard-brand strong {
+  font-size: 22px;
+}
+
+.driver-dashboard-brand small {
+  align-self: flex-end;
+  margin: 0 0 5px -4px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.driver-dashboard-logout {
+  padding: 10px 15px;
+  border: 1px solid #dce4dc;
+  border-radius: 9px;
+  background: white;
+  color: #174c37;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.driver-dashboard-welcome {
+  padding: 65px 0 40px;
+}
+
+.driver-dashboard-kicker {
+  color: #e36e36;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.driver-dashboard-welcome h1 {
+  margin: 12px 0;
+  color: #174c37;
+  font-size: clamp(32px, 5vw, 48px);
+}
+
+.driver-dashboard-welcome p {
+  color: #788078;
+  font-size: 15px;
+}
+
+.driver-dashboard-status {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 22px;
+  padding: 10px 15px;
+  border-radius: 30px;
+  background: #e8f2e7;
+  color: #286447;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.driver-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #48a56a;
+}
+
+.driver-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.driver-dashboard-card {
+  padding: 25px;
+  border: 1px solid #e8e5dc;
+  border-radius: 17px;
+  background: #fffefa;
+  box-shadow: 0 8px 28px rgba(30, 55, 40, 0.04);
+}
+
+.driver-card-icon {
+  display: block;
+  margin-bottom: 22px;
+  font-size: 27px;
+}
+
+.driver-card-label {
+  color: #929b91;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.driver-dashboard-card h2 {
+  margin: 10px 0 7px;
+  color: #174c37;
+  font-size: 20px;
+}
+
+.driver-dashboard-card p {
+  margin: 5px 0;
+  color: #7a837b;
+  font-size: 13px;
+}
+
+.driver-card-plate {
+  width: fit-content;
+  margin-top: 18px;
+  padding: 9px 15px;
+  border: 2px solid #26362d;
+  border-radius: 5px;
+  background: #f6f5ef;
+  color: #202923;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.driver-dashboard-next {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-top: 28px;
+  padding: 30px;
+  border-radius: 17px;
+  background: #174c37;
+  color: white;
+}
+
+.driver-dashboard-next h2 {
+  margin: 10px 0;
+  font-size: 24px;
+}
+
+.driver-dashboard-next p {
+  max-width: 560px;
+  margin: 0;
+  color: #d5e4d9;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.driver-dashboard-next .driver-dashboard-kicker {
+  color: #f4b27e;
+}
+
+.driver-next-icon {
+  font-size: 42px;
+  color: #f4b27e;
+}
+
+.driver-dashboard-footer {
+  padding: 35px 0;
+  color: #929b91;
+  font-size: 11px;
+  text-align: center;
+}
+
+.driver-dashboard-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background: #f6f5ef;
+  color: #174c37;
+  text-align: center;
+}
+
+.driver-loading-symbol {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.driver-dashboard-error {
+  max-width: 440px;
+  padding: 30px;
+  border: 1px solid #e8e5dc;
+  border-radius: 16px;
+  background: #fffefa;
+}
+
+.driver-dashboard-error p {
+  color: #788078;
+  line-height: 1.6;
+}
+
+.driver-dashboard-error button {
+  margin-top: 12px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 9px;
+  background: #174c37;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .driver-dashboard {
+    padding: 0 5%;
+  }
+
+  .driver-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .driver-dashboard-welcome {
+    padding-top: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .driver-dashboard-next {
+    padding: 23px;
+  }
+
+  .driver-next-icon {
+    display: none;
+  }
+}
