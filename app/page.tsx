@@ -14,9 +14,7 @@ type ServiceType = "ride" | "delivery";
 
 export default function HomePage() {
   const [profile, setProfile] = useState<ClientProfile | null>(null);
-  const [selectedService, setSelectedService] = useState<ServiceType | null>(
-    null
-  );
+  const [selectedService, setSelectedService] = useState<ServiceType | null>(null);
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [packageDescription, setPackageDescription] = useState("");
@@ -31,10 +29,7 @@ export default function HomePage() {
     async function restoreClient() {
       try {
         const savedProfile = await getClientProfile();
-
-        if (active && savedProfile) {
-          setProfile(savedProfile);
-        }
+        if (active && savedProfile) setProfile(savedProfile);
       } catch (error) {
         console.error("No se pudo recuperar el perfil del cliente:", error);
       } finally {
@@ -194,6 +189,15 @@ export default function HomePage() {
             Solicitar servicio <span>↗</span>
           </a>
         )}
+
+        <nav className="staff-access" aria-label="Accesos del equipo">
+          <a href="/admin/login" className="staff-access-admin">
+            <span>♙</span> Administración
+          </a>
+          <a href="/driver/login" className="staff-access-driver">
+            <span>🚘</span> Soy conductor
+          </a>
+        </nav>
       </header>
 
       <section className="hero">
@@ -258,26 +262,13 @@ export default function HomePage() {
                   <stop offset="100%" stopColor="#103728" />
                 </linearGradient>
               </defs>
-              <ellipse
-                cx="282"
-                cy="255"
-                rx="215"
-                ry="23"
-                fill="#173B2D"
-                opacity=".17"
-              />
+              <ellipse cx="282" cy="255" rx="215" ry="23" fill="#173B2D" opacity=".17" />
               <path
                 d="M91 194c8-29 25-44 62-51l55-68c15-18 33-27 58-27h84c28 0 47 12 64 36l43 61c30 7 47 20 52 49l-3 35H88l3-35Z"
                 fill="url(#carPaint)"
               />
-              <path
-                d="m222 84-48 60h128V62h-37c-19 0-31 7-43 22Z"
-                fill="#D9E9DE"
-              />
-              <path
-                d="M319 62v82h128l-40-56c-13-18-27-26-49-26h-39Z"
-                fill="#D9E9DE"
-              />
+              <path d="m222 84-48 60h128V62h-37c-19 0-31 7-43 22Z" fill="#D9E9DE" />
+              <path d="M319 62v82h128l-40-56c-13-18-27-26-49-26h-39Z" fill="#D9E9DE" />
               <path d="M313 61v87" stroke="#103728" strokeWidth="7" />
               <path
                 d="M104 190h37m293 0h38"
@@ -285,12 +276,7 @@ export default function HomePage() {
                 strokeWidth="12"
                 strokeLinecap="round"
               />
-              <path
-                d="M90 207h420"
-                stroke="#0D2C20"
-                strokeWidth="9"
-                strokeLinecap="round"
-              />
+              <path d="M90 207h420" stroke="#0D2C20" strokeWidth="9" strokeLinecap="round" />
               <circle cx="181" cy="220" r="43" fill="#202923" />
               <circle cx="181" cy="220" r="23" fill="#E9E6DA" />
               <circle cx="181" cy="220" r="10" fill="#A9B5AA" />
@@ -473,9 +459,7 @@ export default function HomePage() {
                       <span>¿Qué paquete debemos recoger?</span>
                       <textarea
                         value={packageDescription}
-                        onChange={(event) =>
-                          setPackageDescription(event.target.value)
-                        }
+                        onChange={(event) => setPackageDescription(event.target.value)}
                         placeholder="Describe brevemente el paquete"
                         rows={3}
                         required
@@ -570,7 +554,14 @@ export default function HomePage() {
             <small>QUINDÍO</small>
           </span>
         </a>
+
         <p>Conectamos caminos, acercamos destinos.</p>
+
+        <nav className="footer-access" aria-label="Accesos del equipo">
+          <a href="/admin/login">Acceso administrativo</a>
+          <a href="/driver/login">Acceso conductores</a>
+        </nav>
+
         <span className="footer-copy">© 2026 Rodando Quindío</span>
       </footer>
     </main>
