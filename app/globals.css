@@ -2538,3 +2538,322 @@ button {
     display: none;
   }
 }
+
+.driver-availability-button {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 20px;
+  padding: 11px 14px;
+  border: 1px solid #174c37;
+  border-radius: 9px;
+  background: #174c37;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.driver-availability-button:hover:not(:disabled) {
+  background: #286447;
+  transform: translateY(-1px);
+}
+
+.driver-availability-button.is-active {
+  border-color: #d9a18a;
+  background: #fff5ef;
+  color: #a34c2c;
+}
+
+.driver-availability-button.is-active:hover:not(:disabled) {
+  background: #fce9df;
+}
+
+.driver-availability-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.driver-dashboard-status.is-available {
+  background: #e8f2e7;
+  color: #286447;
+}
+
+.driver-dashboard-status.is-unavailable {
+  background: #eeefeb;
+  color: #68736b;
+}
+
+.driver-dashboard-status.is-unavailable .driver-status-dot {
+  background: #929b91;
+}
+
+.driver-availability-error {
+  margin: 0 0 20px;
+  padding: 13px 16px;
+  border-radius: 9px;
+  background: #fff0ed;
+  color: #a83d2e;
+  font-size: 13px;
+}
+
+.driver-offers-section {
+  margin-top: 55px;
+}
+
+.driver-offers-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.driver-offers-heading h2 {
+  margin: 10px 0 7px;
+  color: #174c37;
+  font-size: 29px;
+}
+
+.driver-offers-heading p {
+  margin: 0;
+  color: #788078;
+  font-size: 13px;
+}
+
+.driver-offers-counter {
+  padding: 10px 15px;
+  border-radius: 30px;
+  background: #e8f2e7;
+  color: #286447;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.driver-offers-empty {
+  padding: 42px 20px;
+  border: 1px dashed #d8ded5;
+  border-radius: 17px;
+  background: #fffefa;
+  text-align: center;
+}
+
+.driver-offers-empty > span {
+  font-size: 34px;
+}
+
+.driver-offers-empty h3 {
+  margin: 13px 0 8px;
+  color: #174c37;
+  font-size: 19px;
+}
+
+.driver-offers-empty p {
+  max-width: 440px;
+  margin: 0 auto;
+  color: #788078;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.driver-offer-card {
+  margin-bottom: 18px;
+  padding: 25px;
+  border: 1px solid #e5e8df;
+  border-radius: 17px;
+  background: #fffefa;
+  box-shadow: 0 8px 28px rgba(30, 55, 40, 0.05);
+}
+
+.driver-offer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.driver-offer-type {
+  color: #e36e36;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.driver-offer-top h3 {
+  margin: 9px 0 0;
+  color: #174c37;
+  font-size: 19px;
+}
+
+.driver-offer-pending {
+  padding: 7px 11px;
+  border-radius: 20px;
+  background: #fff2e6;
+  color: #a65c28;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.driver-offer-route {
+  margin: 25px 0;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f6f7f1;
+}
+
+.driver-offer-location {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+
+.driver-route-dot {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  margin-top: 3px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #286447;
+}
+
+.driver-route-dot.pickup {
+  background: #286447;
+}
+
+.driver-route-dot.destination {
+  background: #e36e36;
+  box-shadow: 0 0 0 1px #e36e36;
+}
+
+.driver-offer-location div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.driver-offer-location small {
+  color: #929b91;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.driver-offer-location strong {
+  color: #26362d;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.driver-route-line {
+  width: 2px;
+  height: 25px;
+  margin: 3px 0 3px 5px;
+  border-left: 2px dashed #b9c7b8;
+}
+
+.driver-offer-package {
+  margin: 15px 0;
+  padding: 14px;
+  border-radius: 9px;
+  background: #fff6ec;
+  color: #73502e;
+  font-size: 12px;
+}
+
+.driver-offer-package p {
+  margin: 6px 0 0;
+  line-height: 1.5;
+}
+
+.driver-offer-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px 0;
+  border-top: 1px solid #eceee8;
+  color: #788078;
+  font-size: 11px;
+}
+
+.driver-offer-meta strong {
+  color: #174c37;
+}
+
+.driver-offer-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.driver-offer-actions button {
+  min-height: 47px;
+  padding: 11px 15px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.driver-offer-actions button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.driver-offer-reject {
+  border: 1px solid #e4ddd6;
+  background: white;
+  color: #8a5544;
+}
+
+.driver-offer-reject:hover:not(:disabled) {
+  background: #fff1eb;
+}
+
+.driver-offer-accept {
+  border: 1px solid #174c37;
+  background: #174c37;
+  color: white;
+}
+
+.driver-offer-accept:hover:not(:disabled) {
+  background: #286447;
+  transform: translateY(-1px);
+}
+
+.driver-success-notice {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: 9px;
+  background: #e8f2e7;
+  color: #286447;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .driver-offers-heading {
+    align-items: flex-start;
+  }
+
+  .driver-offers-heading h2 {
+    font-size: 24px;
+  }
+
+  .driver-offer-card {
+    padding: 18px;
+  }
+
+  .driver-offer-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .driver-offer-meta {
+    flex-direction: column;
+  }
+}
