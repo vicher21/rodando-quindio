@@ -1990,3 +1990,293 @@ button {
     font-size: 11px;
   }
 }
+
+.driver-auth-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #f6f5ef;
+  color: #202923;
+}
+
+.driver-auth-decoration {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.driver-auth-decoration-one {
+  background: #dce9dd;
+  top: -190px;
+  left: -120px;
+}
+
+.driver-auth-decoration-two {
+  background: #f4e4ce;
+  right: -170px;
+  bottom: -190px;
+}
+
+.driver-auth-brand {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  color: #174c37;
+  text-decoration: none;
+}
+
+.driver-auth-brand-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #174c37;
+  color: white;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.driver-auth-brand strong {
+  display: block;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.driver-auth-brand small {
+  display: block;
+  margin-top: 4px;
+  font-size: 9px;
+  letter-spacing: 3px;
+  font-weight: 800;
+}
+
+.driver-auth-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  padding: 36px;
+  border: 1px solid #e8e5dc;
+  border-radius: 22px;
+  background: #fffefa;
+  box-shadow: 0 22px 70px rgba(30, 55, 40, 0.09);
+}
+
+.driver-auth-back {
+  color: #66736a;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.driver-auth-back:hover {
+  color: #174c37;
+}
+
+.driver-auth-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin-top: 28px;
+  margin-bottom: 20px;
+  border-radius: 17px;
+  background: #e9f0e9;
+  font-size: 27px;
+}
+
+.driver-auth-kicker {
+  color: #e36e36;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.driver-auth-card h1 {
+  margin: 10px 0;
+  color: #174c37;
+  font-size: clamp(27px, 5vw, 35px);
+  line-height: 1.15;
+}
+
+.driver-auth-description {
+  margin: 0;
+  color: #788078;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.driver-auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 28px 0;
+  padding: 5px;
+  border-radius: 11px;
+  background: #f0f1eb;
+}
+
+.driver-auth-tabs button {
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #68736b;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.driver-auth-tabs button.active {
+  background: #fffefa;
+  color: #174c37;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.driver-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.driver-auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.driver-auth-field label {
+  color: #35433a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.driver-auth-field input {
+  width: 100%;
+  min-height: 48px;
+  box-sizing: border-box;
+  padding: 0 14px;
+  border: 1px solid #e0e4dc;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #202923;
+  font: inherit;
+  font-size: 13px;
+}
+
+.driver-auth-field input:focus {
+  border-color: #286447;
+  box-shadow: 0 0 0 3px rgba(40, 100, 71, 0.1);
+}
+
+.driver-auth-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.driver-auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0 0;
+  color: #a0a69f;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.driver-auth-divider::before,
+.driver-auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e8e9e2;
+}
+
+.driver-auth-notice {
+  margin: 0;
+  padding: 13px;
+  border-radius: 9px;
+  background: #f1f5ed;
+  color: #526b56;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.driver-auth-message {
+  padding: 13px;
+  border-radius: 9px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.driver-auth-message.error {
+  background: #fff0ed;
+  color: #a83d2e;
+}
+
+.driver-auth-message.success {
+  background: #edf6ed;
+  color: #286447;
+}
+
+.driver-auth-submit {
+  width: 100%;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 5px;
+  border: 0;
+  border-radius: 10px;
+  background: #174c37;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.driver-auth-submit:hover:not(:disabled) {
+  background: #286447;
+  transform: translateY(-2px);
+}
+
+.driver-auth-submit:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.driver-auth-footer {
+  margin: 26px 0 0;
+  color: #9a9f97;
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .driver-auth-card {
+    padding: 25px 20px;
+  }
+
+  .driver-auth-row {
+    grid-template-columns: 1fr;
+  }
+}
