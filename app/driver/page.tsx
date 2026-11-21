@@ -50,6 +50,7 @@ export default function DriverDashboard() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
 
+  // Consultar ofertas pendientes del conductor.
   const loadOffers = useCallback(async (driverId: string) => {
     setLoadingOffers(true);
 
@@ -91,6 +92,7 @@ export default function DriverDashboard() {
       setOffers(normalizedOffers);
     } catch (err) {
       console.error("Error consultando ofertas:", err);
+
       setError(
         err instanceof Error
           ? err.message
@@ -101,6 +103,7 @@ export default function DriverDashboard() {
     }
   }, []);
 
+  // Cargar perfil, ejecutar despacho y consultar ofertas.
   useEffect(() => {
     let active = true;
     let polling: ReturnType<typeof setInterval> | undefined;
@@ -170,15 +173,27 @@ export default function DriverDashboard() {
           available: driverProfile.available,
         });
 
+        // Buscar solicitudes pendientes al abrir el panel.
+        const { error: dispatchError } = await supabase.rpc(
+          "dispatch_waiting_requests"
+        );
+
+        if (dispatchError) throw dispatchError;
+
+        if (!active) return;
+
         await loadOffers(user.id);
 
         if (!active) return;
 
+        // Actualizar ofertas cada 1,5 segundos.
+        // Las ofertas aceptadas o expiradas desaparecerán
+        // cuando Supabase actualice sus estados.
         polling = setInterval(() => {
           if (currentDriverId) {
             void loadOffers(currentDriverId);
           }
-        }, 5000);
+        }, 1500);
       } catch (err) {
         if (active) {
           setError(
@@ -196,10 +211,14 @@ export default function DriverDashboard() {
 
     return () => {
       active = false;
-      if (polling) clearInterval(polling);
+
+      if (polling) {
+        clearInterval(polling);
+      }
     };
   }, [router, loadOffers]);
 
+  // Activar o desactivar disponibilidad.
   async function handleAvailability() {
     if (!driver || updatingAvailability) return;
 
@@ -247,11 +266,10 @@ export default function DriverDashboard() {
     }
   }
 
+  // Aceptar una solicitud.
   async function handleAccept(offer: DriverOffer) {
     if (!driver || processingOffer) return;
 
-    // Abrimos la pestaña durante el clic para evitar que el navegador
-    // bloquee WhatsApp después de las llamadas asíncronas.
     const whatsappWindow = window.open("about:blank", "_blank");
 
     setProcessingOffer(offer.request_id);
@@ -267,18 +285,26 @@ export default function DriverDashboard() {
       if (acceptError) throw acceptError;
 
       if (data === false) {
-        throw new Error("La oferta ya no está disponible.");
+        throw new Error(
+          "Esta solicitud ya fue aceptada por otro conductor o dejó de estar disponible."
+        );
       }
 
+      // Retirar inmediatamente la solicitud de la pantalla.
       setOffers((current) =>
         current.filter((item) => item.request_id !== offer.request_id)
       );
 
+      // El conductor queda ocupado.
       setDriver((current) =>
         current ? { ...current, available: false } : current
       );
 
-      // Solo el conductor asignado puede obtener el teléfono del cliente.
+      setNotice(
+        "¡Servicio asignado! Estamos preparando tu contacto con el cliente."
+      );
+
+      // Obtener los datos del cliente asignado.
       const { data: contactData, error: contactError } = await supabase.rpc(
         "get_assigned_service_contact",
         { p_request_id: offer.request_id }
@@ -297,6 +323,7 @@ export default function DriverDashboard() {
       }
 
       const digits = String(contact.guest_phone).replace(/\D/g, "");
+
       const whatsappNumber = digits.startsWith("57")
         ? digits
         : `57${digits}`;
@@ -308,13 +335,21 @@ export default function DriverDashboard() {
       }
 
       const serviceLabel =
-        contact.service_type === "delivery" ? "la entrega" : "el viaje";
+        contact.service_type === "delivery"
+          ? "la entrega"
+          : "el viaje";
 
       const message =
-        `¡Hola${contact.guest_name ? ` ${contact.guest_name}` : ""}! ` +
-        `Soy ${driver.full_name}, conductor de Rodando Quindío. ` +
-        `He aceptado ${serviceLabel} desde ${contact.origin} hasta ${contact.destination}. ` +
-        "Estoy disponible para coordinar contigo. ¡Muchas gracias!";
+        `¡Hola${contact.guest_name ? ` ${contact.guest_name}` : ""}! 👋 ` +
+        `Soy ${driver.full_name}, tu conductor de Rodando Quindío. 🚘\n\n` +
+        `¡He aceptado ${serviceLabel}! ` +
+        `Te recogeré en ${contact.origin} con destino a ${contact.destination}.\n\n` +
+        `🚗 *Información del vehículo:*\n` +
+        `• Marca y modelo: ${driver.vehicle_brand} ${driver.vehicle_model}\n` +
+        `• Año: ${driver.vehicle_year}\n` +
+        `• Color: ${driver.vehicle_color}\n` +
+        `• Placa: ${driver.license_plate}\n\n` +
+        `Estoy disponible para coordinar contigo. ¡Muchas gracias por elegir Rodando Quindío! 💚`;
 
       const whatsappUrl =
         `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -347,6 +382,7 @@ export default function DriverDashboard() {
     }
   }
 
+  // Rechazar una solicitud.
   async function handleReject(offer: DriverOffer) {
     if (!driver || processingOffer) return;
 
@@ -371,6 +407,8 @@ export default function DriverDashboard() {
       );
 
       setNotice("Has rechazado esta solicitud.");
+
+      await loadOffers(driver.id);
     } catch (err) {
       setError(
         err instanceof Error
@@ -384,6 +422,7 @@ export default function DriverDashboard() {
     }
   }
 
+  // Cerrar sesión.
   async function handleLogout() {
     try {
       await logoutUser();
@@ -412,6 +451,7 @@ export default function DriverDashboard() {
         <div className="driver-dashboard-error">
           <h2>No pudimos abrir tu panel</h2>
           <p>{error || "Comprueba tu sesión de conductor."}</p>
+
           <button onClick={() => router.replace("/driver/login")}>
             Volver al acceso
           </button>
@@ -472,12 +512,15 @@ export default function DriverDashboard() {
         <article className="driver-dashboard-card">
           <span className="driver-card-icon">🚘</span>
           <span className="driver-card-label">MI VEHÍCULO</span>
+
           <h2>
             {driver.vehicle_brand} {driver.vehicle_model}
           </h2>
+
           <p>
             {driver.vehicle_year} · {driver.vehicle_color}
           </p>
+
           <div className="driver-card-plate">
             {driver.license_plate}
           </div>
@@ -495,10 +538,13 @@ export default function DriverDashboard() {
           <span className="driver-card-icon">
             {driver.available ? "🟢" : "⚪"}
           </span>
+
           <span className="driver-card-label">DISPONIBILIDAD</span>
+
           <h2>
             {driver.available ? "Disponible" : "No disponible"}
           </h2>
+
           <p>
             {driver.available
               ? "Puedes recibir ofertas de servicios."
@@ -528,7 +574,9 @@ export default function DriverDashboard() {
             <span className="driver-dashboard-kicker">
               OPORTUNIDADES DE SERVICIO
             </span>
+
             <h2>Solicitudes para ti</h2>
+
             <p>
               Aquí aparecerán las solicitudes que te enviemos.
             </p>
@@ -543,6 +591,7 @@ export default function DriverDashboard() {
           <div className="driver-offers-empty">
             <span>⚪</span>
             <h3>No estás disponible</h3>
+
             <p>
               Activa tu disponibilidad para recibir nuevas solicitudes.
             </p>
@@ -561,6 +610,7 @@ export default function DriverDashboard() {
           <div className="driver-offers-empty">
             <span>🛣️</span>
             <h3>Aún no tienes solicitudes</h3>
+
             <p>
               Mantente disponible. Cuando llegue una nueva solicitud,
               aparecerá aquí automáticamente.
@@ -581,6 +631,7 @@ export default function DriverDashboard() {
                       ? "🚘 VIAJE"
                       : "📦 MENSAJERÍA"}
                   </span>
+
                   <h3>
                     {request.service_type === "ride"
                       ? "Nueva solicitud de transporte"
@@ -596,6 +647,7 @@ export default function DriverDashboard() {
               <div className="driver-offer-route">
                 <div className="driver-offer-location">
                   <span className="driver-route-dot pickup" />
+
                   <div>
                     <small>RECOGIDA</small>
                     <strong>{request.origin}</strong>
@@ -606,6 +658,7 @@ export default function DriverDashboard() {
 
                 <div className="driver-offer-location">
                   <span className="driver-route-dot destination" />
+
                   <div>
                     <small>DESTINO</small>
                     <strong>{request.destination}</strong>
@@ -664,11 +717,14 @@ export default function DriverDashboard() {
           <span className="driver-dashboard-kicker">
             RODANDO QUINDÍO
           </span>
+
           <h2>Conectamos caminos.</h2>
+
           <p>
             Gracias por ser parte de nuestra comunidad de conductores.
           </p>
         </div>
+
         <span className="driver-next-icon">✳</span>
       </section>
 

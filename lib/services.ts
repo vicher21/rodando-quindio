@@ -71,3 +71,38 @@ export async function createServiceRequest(
     offers_created: Number(data.offers_created ?? 0),
   };
 }
+
+export type ClientServiceRequest = {
+  id: string;
+  service_type: "ride" | "delivery";
+  origin: string;
+  destination: string;
+  package_description: string | null;
+  status: string;
+  requested_at: string;
+  accepted_at: string | null;
+  driver_name: string | null;
+  driver_vehicle: string | null;
+  driver_plate: string | null;
+};
+
+export async function getMyServiceRequests(): Promise<ClientServiceRequest[]> {
+  const { data, error } = await supabase.rpc("get_my_service_requests");
+
+  if (error) throw error;
+
+  return (data ?? []) as ClientServiceRequest[];
+}
+
+export async function cancelServiceRequest(requestId: string): Promise<void> {
+  const { data, error } = await supabase.rpc(
+    "cancel_client_service_request",
+    { p_request_id: requestId }
+  );
+
+  if (error) throw error;
+
+  if (data !== true) {
+    throw new Error("No pudimos confirmar la cancelación.");
+  }
+}
