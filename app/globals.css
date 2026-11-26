@@ -2857,3 +2857,325 @@ button {
     flex-direction: column;
   }
 }
+
+/* ==========================================
+   RODANDO QUINDÍO — EXPERIENCIA PREMIUM MÓVIL
+   ========================================== */
+
+@media (max-width: 760px) {
+  .site-header {
+    width: 100%;
+    height: auto;
+    min-height: 76px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 20px;
+  }
+
+  .brand {
+    min-width: 0;
+    gap: 9px;
+  }
+
+  .brand-symbol {
+    width: 39px;
+    height: 39px;
+    flex-shrink: 0;
+    border-radius: 12px;
+  }
+
+  .brand-copy strong {
+    font-size: 21px;
+  }
+
+  .brand-copy small {
+    font-size: 8px;
+    letter-spacing: 2.8px;
+  }
+
+  .client-header {
+    min-width: 0;
+    justify-content: flex-end;
+    gap: 9px;
+  }
+
+  .client-greeting {
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .header-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    padding: 11px 13px;
+    border-radius: 10px;
+    font-size: 11px;
+  }
+
+  .staff-access {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 9px;
+    margin: 0;
+  }
+
+  .staff-access a {
+    min-width: 0;
+    min-height: 42px;
+    padding: 10px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+  }
+
+  .hero {
+    gap: 28px;
+    padding: 48px 22px 55px;
+  }
+
+  .hero-content {
+    width: 100%;
+  }
+
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.2px;
+    line-height: 1.6;
+  }
+
+  .hero h1 {
+    margin: 20px 0 15px;
+    font-size: clamp(48px, 12.5vw, 65px);
+    letter-spacing: -3.5px;
+    line-height: 1.02;
+  }
+
+  .hero h1 span {
+    letter-spacing: -2px;
+  }
+
+  .hero-description {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 11px;
+    margin-top: 23px;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+    min-height: 52px;
+    border-radius: 12px;
+    font-size: 13px;
+  }
+
+  .hero-note {
+    margin-top: 23px;
+    font-size: 11px;
+  }
+
+  .hero-art {
+    width: 100%;
+    min-height: 290px;
+    border-radius: 22px;
+  }
+
+  .car-illustration {
+    width: 108%;
+    bottom: 54px;
+  }
+
+  .art-caption {
+    left: 15px;
+    bottom: 15px;
+    gap: 9px;
+  }
+
+  .art-caption strong {
+    font-size: 10px;
+  }
+
+  .art-caption small {
+    font-size: 8px;
+  }
+
+  .location-one {
+    top: 75px;
+    left: 13px;
+  }
+
+  .location-two {
+    right: 12px;
+    bottom: 100px;
+  }
+
+  .services-section {
+    padding: 58px 20px;
+  }
+
+  .section-heading {
+    margin-bottom: 25px;
+  }
+
+  .section-heading h2 {
+    font-size: 35px;
+    letter-spacing: -1.5px;
+  }
+
+  .section-heading > p {
+    margin-top: 10px;
+    line-height: 1.7;
+  }
+
+  .client-registration {
+    max-width: 100%;
+    padding: 27px 21px;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(22, 75, 55, 0.07);
+  }
+
+  .client-welcome {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 17px;
+  }
+
+  .client-welcome h3 {
+    font-size: 23px;
+  }
+
+  .client-tracking-section {
+    margin: 22px 0 !important;
+  }
+
+  .client-tracking-section .section-heading h2 {
+    font-size: 27px;
+    line-height: 1.15;
+  }
+
+  .service-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .service-card {
+    min-height: auto;
+    padding: 25px 23px;
+    border-radius: 19px;
+  }
+
+  .service-card h3 {
+    font-size: 23px;
+  }
+
+  .service-card p {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .service-link {
+    min-height: 42px;
+    font-size: 13px;
+  }
+
+  .request-panel {
+    margin-top: 20px;
+    padding: 23px 19px;
+    border-radius: 19px;
+  }
+
+  .registration-field input,
+  .simple-request-form textarea {
+    min-height: 54px;
+    border-radius: 11px;
+    font-size: 14px;
+  }
+
+  .registration-field input {
+    padding: 0 14px;
+  }
+
+  .simple-request-form textarea {
+    min-height: 100px;
+  }
+
+  .registration-submit {
+    min-height: 55px;
+    border-radius: 12px;
+    font-size: 13px;
+  }
+
+  .trust-section {
+    padding: 58px 22px;
+    gap: 25px;
+  }
+
+  .trust-copy h2 {
+    font-size: 34px;
+    letter-spacing: -1.5px;
+  }
+
+  .trust-copy > p {
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .trust-point {
+    gap: 14px;
+    padding: 17px 0;
+  }
+
+  .site-footer {
+    padding: 30px 22px;
+    gap: 15px;
+  }
+
+  .footer-access {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 390px) {
+  .site-header {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .client-greeting {
+    display: none;
+  }
+
+  .brand-copy strong {
+    font-size: 19px;
+  }
+
+  .hero {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .hero h1 {
+    font-size: 49px;
+  }
+
+  .services-section {
+    padding-right: 17px;
+    padding-left: 17px;
+  }
+
+  .staff-access a {
+    font-size: 10px;
+  }
+}
